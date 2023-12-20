@@ -1,0 +1,134 @@
+body{
+  margin: 0;
+  font-family: "PingFang TC", "PingFang SC", "微軟正黑體", "Microsoft JhengHei", "微软雅黑", "Microsoft YaHei", "Noto Sans CJK TC", "Noto Sans CJK SC", "Droid Sans", "wenquanyi micro hei", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Helvetica Neue", sans-serif;
+}
+#app {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+.el-button--primary{
+  background-color: #592C98;
+  border: 0;
+  &:hover, &:focus{
+    background-color: #47237A;
+  }
+}
+
+.login{
+  height: 100vh;
+  background-color: white;
+  text-align: center;
+}
+
+.right-content{
+  margin-left: 270px;
+  background-color: rgb(237, 238, 240);
+  min-height: 100vh;
+
+  .main-content{
+    padding-top: 50px;
+    padding-left: 50px;
+  }
+}
+
+.page-header{
+  h1{
+    font-size: 1.5em;
+  }
+}
+
+.page-content{
+  padding: 15px;
+  padding-left: 0;
+  margin-right: 50px;
+  position: relative;
+  background: #fff;
+  color: #5b5b5b;
+  margin-bottom: 20px;
+  border: 1px solid #e7e7e7;
+  border-radius: 5px;
+  margin-top: 50px;
+
+  .content-header{
+    margin: 0;
+    border-radius: 3px 3px 0 0;
+    h2{
+      padding-left: 20px;
+      padding-bottom: 20px;
+      margin: 8px 0 0;
+      font-weight: 400;
+      font-size: 16px;
+      display: block;
+      color: #47237A;
+      border-bottom: none;
+    }
+  }
+
+  .content-tabs{
+    margin-bottom: 10px;
+    .el-tabs__item{
+      &:hover{
+        color: #C6471B;
+      }
+      &.is-active{
+        color: #C6471B;
+      }
+    }
+    .el-tabs{
+      .el-tabs__header{
+        padding-left: 20px;
+      }
+      .el-tabs__content{
+        display: none;
+      }
+      .el-tabs__nav-wrap::after{
+        display: none;
+      }
+    }
+  }
+}
+
+.table{
+  th{
+    padding-left: 20px;
+    border-top: 0;
+  }
+  td{
+    padding-left: 20px;
+  }
+}
+
+.content-header{
+  display: flex;
+  h2{
+    flex: 1;
+  }
+  .action-button{
+    margin-right: 20px;
+  }
+}
+
+.action-buttons{
+  a{
+    margin-right: 10px;
+    display: inline-block;
+  }
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .2s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+.action-links{
+  .action-link{
+    margin-right: 10px;
+    &.danger{
+      color: red;
+    }
+  }
+}
