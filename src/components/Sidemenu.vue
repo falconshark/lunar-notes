@@ -2,43 +2,35 @@
   <div class="sidemenu">
     <div class="logo-sidemenu">
       <div class="sidemenu-title">
-        Falcon
+        Falcon Note Taking
       </div>
     </div>
     <el-menu
     :default-active="activeIndex"
-    class="sidemenu-menu"
-    background-color="#3E3F3A"
-    text-color="#fff"
-    active-text-color="#ffd04b">
+    background-color="#158CBA"
+    text-color="#ffffff"
+    class="sidemenu-inner"
+    >
+    <div class="flex-grow" />
     <div class="menu-item-wrapper" v-for="menuItem in menuItems">
-      <router-link :to="menuItem.link" :key="menuItem.index" v-if="menuItem.type == 'menu-item'">
-        <el-menu-item :index="menuItem.index">
-          <i :class="menuItem.icon"></i>
-          {{ menuItem.title }}
+      <el-menu-item :index="menuItem.index" v-if="menuItem.type === 'menu-item'">
+        <a :href="menuItem.link">{{ menuItem.title }}</a>
+      </el-menu-item>
+      <el-sub-menu :index="menuItem.index" v-else>
+        <template #title>{{ menuItem.title }}</template>
+        <el-menu-item v-for="subItem in menuItem.submenu" :index="subItem.index">
+          <a :href="subItem.link">{{ subItem.title }}</a>
         </el-menu-item>
-      </router-link>
-
-      <el-submenu :index="menuItem.index" :key="menuItem.index" v-if="menuItem.type == 'submenu'">
-        <template slot="title">
-          <i :class="menuItem.icon"></i>
-          <span slot="title">{{ $t(menuItem.title) }}</span>
-        </template>
-        <router-link :to="subItem.link" :index="subItem.index" :key="subItem.index" v-for="subItem in menuItem.submenu">
-          <el-menu-item :index="subItem.index">
-            {{ subItem.title }}
-          </el-menu-item>
-        </router-link>
-      </el-submenu>
+      </el-sub-menu>
     </div>
   </el-menu>
-</div>
+  </div>
 </template>
 
 <script>
 
 export default {
-  name: 'Sidebar',
+  name: 'Sidemenu',
   data(){
     return{
       activeIndex: '1',
@@ -62,13 +54,21 @@ export default {
               'link': '/notes',
             },
             {
-              'index': '2-2',
-              'title': 'Notebook',
+              'index': '2-1',
+              'title': 'Notebooks',
+              'link': '/notebooks',
             },
           ],
         },
+        {
+          'index': '3',
+          'type': 'menu-item',
+          'icon': 'el-icon-menu',
+          'title': 'Settings',
+          'link': '/settings',
+        },
       ],
-    };
+    }
   },
   mounted(){
     this.checkActive();
@@ -108,6 +108,8 @@ export default {
   padding-bottom: 15px;
   margin-left: 25px;
   color: white;
+  font-size: 1.3em;
+  font-weight: bold;
   display: flex;
   align-items: center;
   img{
@@ -116,7 +118,7 @@ export default {
 }
 .sidemenu{
   width: 270px;
-  background: #3E3F3A;
+  background: #158CBA;
   overflow: hidden;
   overflow-y: hidden;
   position: fixed;

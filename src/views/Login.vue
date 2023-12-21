@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie';
 import { mapState, mapActions } from 'pinia'
 import { useCommonStore } from '../stores/common'
 
@@ -39,14 +40,12 @@ export default {
       const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD;
       const formPassword = this.form.password;
       if(adminPassword === formPassword){
-        this.login();
+        this.login(); //Set login state to true
+        Cookies.set('loginStatus', true); // Set Cookies
         this.$router.push({ name: 'Dashboard'} );
       }
     },
     ...mapActions(useCommonStore, ['login'])
-  },
-  computed: {
-    ...mapState(useCommonStore, ['isLogin'])
   },
 }
 </script>
