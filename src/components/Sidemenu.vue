@@ -14,10 +14,16 @@
     <div class="flex-grow" />
     <div class="menu-item-wrapper" v-for="menuItem in menuItems">
       <el-menu-item :index="menuItem.index" v-if="menuItem.type === 'menu-item'">
-        <a :href="menuItem.link">{{ menuItem.title }}</a>
+        <a :href="menuItem.link">
+          <i :class="menuItem.icon"></i>
+          {{ menuItem.title }}
+        </a>
       </el-menu-item>
       <el-sub-menu :index="menuItem.index" v-else>
-        <template #title>{{ menuItem.title }}</template>
+        <template #title>
+          <i :class="menuItem.icon"></i>
+          <a href="#">{{ menuItem.title }}</a>
+        </template>
         <el-menu-item v-for="subItem in menuItem.submenu" :index="subItem.index">
           <a :href="subItem.link">{{ subItem.title }}</a>
         </el-menu-item>
@@ -38,14 +44,14 @@ export default {
         {
           'index': '1',
           'type': 'menu-item',
-          'icon': 'el-icon-menu',
+          'icon': 'bi bi-house-door-fill',
           'title': 'Dashboard',
           'link': '/dashboard',
         },
         {
           'index': '2',
           'type': 'submenu',
-          'icon': 'el-icon-s-order',
+          'icon': 'bi bi-filter-square-fill',
           'title': 'Notes',
           'submenu': [
             {
@@ -63,7 +69,7 @@ export default {
         {
           'index': '3',
           'type': 'menu-item',
-          'icon': 'el-icon-menu',
+          'icon': 'bi bi-gear-fill',
           'title': 'Settings',
           'link': '/settings',
         },
@@ -129,8 +135,17 @@ export default {
 
   a{
     color: white;
+    font-size: 16px;
     &:hover{
       text-decoration: none;
+    }
+  }
+
+  .bi{
+    margin-right: 10px;
+    font-size: 1.3em;
+    &.bi-filter-square-fill{
+      margin-right: 16px;
     }
   }
 
