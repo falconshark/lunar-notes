@@ -3,17 +3,14 @@
     <el-container class="login-wrapper">
       <el-main>
         <img class="img-fluid logo" src="../assets/logo.png" />
-        <h1 class="main-title">Note Taking</h1>
+        <h1 class="main-title">Note Taking App</h1>
         <div class="login-form">
           <el-form ref="form" :model="form">
-            <el-form-item label="Username">
-              <el-input v-model="form.username"></el-input>
-            </el-form-item>
             <el-form-item label="Password">
               <el-input type="password" v-model="form.password"></el-input>
             </el-form-item>
             <el-form-item>
-              <button class="btn btn-primary login-button" @click.prevent="login">Login</button>
+              <button class="btn btn-primary login-button" @click.prevent="startLogin">Login</button>
             </el-form-item>
           </el-form>
         </div>
@@ -23,15 +20,33 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'pinia'
+import { useCommonStore } from '../stores/common'
+
 export default {
   name: 'Login',
   data(){
     return{
       form:{
-        username: '',
         password: '',
       },
     }
+  },
+  methods: {
+    //Simple login function.
+    startLogin(){
+      const store = useCommonStore();
+      const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD;
+      const formPassword = this.form.password;
+      if(adminPassword === formPassword){
+        this.login();
+        this.$router.push({ name: 'Dashboard'} );
+      }
+    },
+    ...mapActions(useCommonStore, ['login'])
+  },
+  computed: {
+    ...mapState(useCommonStore, ['isLogin'])
   },
 }
 </script>
@@ -42,6 +57,7 @@ export default {
   align-items: center;
   position: relative;
   justify-content: center;
+  padding-top: 100px;
 }
 .main-title{
   margin-top: 20px;
