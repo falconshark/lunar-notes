@@ -1,18 +1,18 @@
 <template>
   <div class="right-content dashboard">
-    <div class="card">
-      <div class="card-body">
-        Oh! It's look like you had not connect any cloud drive yet.
-        Connect it before start using.
-      </div>
+    <div class="main-content">
+      <ConnectDropbox />
     </div>
   </div>
 </template>
 
 <script>
-
+import ConnectDropbox from '@/components/ConnectDropbox.vue';
 export default {
   name: 'Dashboard',
+  components: {
+    ConnectDropbox,
+  },
 }
 </script>
 

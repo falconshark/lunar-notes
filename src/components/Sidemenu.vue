@@ -133,6 +133,10 @@ export default {
   left: 0;
   min-height: 100vh;
 
+  .el-menu{
+    right: -1px;
+  }
+
   a{
     color: white;
     font-size: 16px;

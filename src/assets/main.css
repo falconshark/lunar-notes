@@ -1,1 +1,122 @@
-﻿body{margin:0;font-family:"PingFang TC", "PingFang SC", "微軟正黑體", "Microsoft JhengHei", "微软雅黑", "Microsoft YaHei", "Noto Sans CJK TC", "Noto Sans CJK SC", "Droid Sans", "wenquanyi micro hei", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Helvetica Neue", sans-serif}#app{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;min-height:100vh}.el-button--primary{background-color:#592C98;border:0}.el-button--primary:hover,.el-button--primary:focus{background-color:#47237A}.login{height:100vh;background-color:white;text-align:center}.right-content{margin-left:270px;background-color:#edeef0;min-height:100vh}.right-content .main-content{padding-top:50px;padding-left:50px}.page-header h1{font-size:1.5em}.page-content{padding:15px;padding-left:0;margin-right:50px;position:relative;background:#fff;color:#5b5b5b;margin-bottom:20px;border:1px solid #e7e7e7;border-radius:5px;margin-top:50px}.page-content .content-header{margin:0;border-radius:3px 3px 0 0}.page-content .content-header h2{padding-left:20px;padding-bottom:20px;margin:8px 0 0;font-weight:400;font-size:16px;display:block;color:#47237A;border-bottom:none}.page-content .content-tabs{margin-bottom:10px}.page-content .content-tabs .el-tabs__item:hover{color:#C6471B}.page-content .content-tabs .el-tabs__item.is-active{color:#C6471B}.page-content .content-tabs .el-tabs .el-tabs__header{padding-left:20px}.page-content .content-tabs .el-tabs .el-tabs__content{display:none}.page-content .content-tabs .el-tabs .el-tabs__nav-wrap::after{display:none}.table th{padding-left:20px;border-top:0}.table td{padding-left:20px}.content-header{display:flex}.content-header h2{flex:1}.content-header .action-button{margin-right:20px}.action-buttons a{margin-right:10px;display:inline-block}.fade-enter-active,.fade-leave-active{transition:opacity .2s}.fade-enter,.fade-leave-to{opacity:0}.action-links .action-link{margin-right:10px}.action-links .action-link.danger{color:red}
+@charset "UTF-8";
+body {
+  margin: 0;
+  font-family: "PingFang TC", "PingFang SC", "微軟正黑體", "Microsoft JhengHei", "微软雅黑", "Microsoft YaHei", "Noto Sans CJK TC", "Noto Sans CJK SC", "Droid Sans", "wenquanyi micro hei", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Helvetica Neue", sans-serif;
+  font-size: 16px;
+}
+
+#app {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+.btn {
+  display: block;
+}
+
+.login {
+  height: 100vh;
+  background-color: white;
+  text-align: center;
+}
+
+.right-content {
+  margin-left: 270px;
+  min-height: 93vh;
+  background-color: #edeef0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.right-content .main-content {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.page-header h1 {
+  font-size: 1.5em;
+}
+
+.page-content {
+  padding: 15px;
+  padding-left: 0;
+  margin-right: 50px;
+  position: relative;
+  background: #fff;
+  color: #5b5b5b;
+  margin-bottom: 20px;
+  border: 1px solid #e7e7e7;
+  border-radius: 5px;
+  margin-top: 50px;
+}
+.page-content .content-header {
+  margin: 0;
+  border-radius: 3px 3px 0 0;
+}
+.page-content .content-header h2 {
+  padding-left: 20px;
+  padding-bottom: 20px;
+  margin: 8px 0 0;
+  font-weight: 400;
+  font-size: 16px;
+  display: block;
+  color: #47237A;
+  border-bottom: none;
+}
+.page-content .content-tabs {
+  margin-bottom: 10px;
+}
+.page-content .content-tabs .el-tabs__item:hover {
+  color: #C6471B;
+}
+.page-content .content-tabs .el-tabs__item.is-active {
+  color: #C6471B;
+}
+.page-content .content-tabs .el-tabs .el-tabs__header {
+  padding-left: 20px;
+}
+.page-content .content-tabs .el-tabs .el-tabs__content {
+  display: none;
+}
+.page-content .content-tabs .el-tabs .el-tabs__nav-wrap::after {
+  display: none;
+}
+
+.table th {
+  padding-left: 20px;
+  border-top: 0;
+}
+.table td {
+  padding-left: 20px;
+}
+
+.content-header {
+  display: flex;
+}
+.content-header h2 {
+  flex: 1;
+}
+.content-header .action-button {
+  margin-right: 20px;
+}
+
+.action-buttons a {
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.2s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+.action-links .action-link {
+  margin-right: 10px;
+}
+.action-links .action-link.danger {
+  color: red;
+}/*# sourceMappingURL=main.css.map */
