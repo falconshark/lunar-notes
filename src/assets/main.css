@@ -15,6 +15,10 @@ body {
   display: block;
 }
 
+.btn:not(.disabled):hover {
+  margin-top: 10px;
+}
+
 .login {
   height: 100vh;
   background-color: white;
