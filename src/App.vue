@@ -3,9 +3,9 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <Sidemenu v-if="isLogin"/>
+  <Sidemenu/>
   <RouterView />
-  <Footer v-if="isLogin"/>
+  <Footer />
 </template>
 
 <script>
@@ -20,19 +20,6 @@ export default {
   components: {
     Sidemenu,
     Footer,
-  },
-  mounted(){
-    const loginStatus = Cookies.get('loginStatus');
-    if(loginStatus === 'true'){
-      this.login();
-      this.$router.push({ name: 'Dashboard'} );
-    }
-  },
-  methods: {
-    ...mapActions(useCommonStore, ['login'])
-  },
-  computed: {
-    ...mapState(useCommonStore, ['isLogin'])
   },
 }
 </script>
