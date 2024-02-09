@@ -12,34 +12,29 @@
 </template>
   
   <script>
-  import { Dropbox } from 'dropbox';
-  import queryString from 'query-string';
   import Cookies from 'js-cookie';
+  import { mapState, mapActions } from 'pinia';
+  import { useStorageStore } from '../stores/storage';
+  import Storage from '../lib/Storage';
 
   export default {
     name: 'ConnectDropbox',
     mounted(){
-      const accessToken = this.getAccessTokenFromUrl();
+      const accessToken = Storage.getAccessTokenFromUrl();
       if(accessToken){
         Cookies.set('dropboxToken', accessToken);
+        this.setDropboxAccessToken(accessToken);
       }
     },
     methods:{
-      //Get access token from url if exist
-      getAccessTokenFromUrl(){
-        if(window.location.hash && queryString.parse(window.location.hash).access_token){
-          const query = queryString.parse(window.location.hash).access_token;
-          return query;
-        }
-        return null;
-      },
       async conntectDropbox(){
-        const redirectUrl = `${import.meta.env.VITE_BASE_URL}/`;
-        const clientId = import.meta.env.VITE_DROPBOX_APP_ID;
-        const dbx = new Dropbox({ clientId: clientId });
-        const authUrl = await dbx.auth.getAuthenticationUrl(redirectUrl);
+        const authUrl = await Storage.getDropboxAuthUrl();
         location.href = authUrl;
       },
+      ...mapActions(useStorageStore, ['setDropboxAccessToken'])
+    },
+    computed: {
+      ...mapState(useStorageStore, ['dropboxAccessToken'])
     },
   }
   </script>
