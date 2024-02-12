@@ -1,7 +1,3 @@
-<script setup>
-import { RouterView } from 'vue-router'
-</script>
-
 <template>
   <Sidemenu/>
   <RouterView />
@@ -15,7 +11,6 @@ import { mapState, mapActions } from 'pinia';
 import { useStorageStore } from './stores/storage';
 import Sidemenu from '@/components/Sidemenu.vue';
 import Footer from '@/components/Footer.vue';
-import Storage from '@/lib/Storage';
 
 export default {
   name: 'App',
@@ -24,18 +19,19 @@ export default {
     Footer,
   },
   mounted(){
-    //Load saved access token from cookies
+    //Load saved refresh token from cookies, and save it.
     const dropboxToken = Cookies.get('dropboxToken');
     if(dropboxToken){
-      //this.setDropboxAccessToken(dropboxToken);
-      //Storage.refreshToken(dropboxToken);
+      this.dbx.auth.setRefreshToken(dropboxToken);
+      this.updateDropboxClient(this.dbx);
+      this.setAuthenticated();
     }
   },
   methods:{
-    ...mapActions(useStorageStore, ['setDropboxAccessToken'])
+    ...mapActions(useStorageStore, ['updateDropboxClient', 'setAuthenticated'])
   },
   computed: {
-    ...mapState(useStorageStore, ['dropboxAccessToken'])
+    ...mapState(useStorageStore, ['dbx'])
   },
 }
 </script>

@@ -3,7 +3,7 @@
     <div class="main-content">
       <div class="inner-content">
         <h1 class="page-header">Dashboard</h1>
-        <ConnectDropbox v-if="!dropboxAccessToken"/>
+        <ConnectDropbox v-if="!authenticated"/>
         <div class="dashboard" v-else>
           <div class="welcome-message">
             Welcome to Falcon Notes ! Let's start taking note.
@@ -28,7 +28,7 @@ export default {
     LatestNotes
   },
   computed: {
-    ...mapState(useStorageStore, ['dropboxAccessToken'])
+    ...mapState(useStorageStore, ['authenticated'])
   },
 }
 </script>

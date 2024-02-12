@@ -8,11 +8,15 @@ export const useStorageStore = defineStore('storage', {
   state: () => {
     return {
       dbx: dbx,
+      authenticated: false,
     }
   },
   actions: {
     updateDropboxClient(dbx) {
       this.dbx = dbx;
+    },
+    setAuthenticated(){
+      this.authenticated = true;
     },
   },
 })

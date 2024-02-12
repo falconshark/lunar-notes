@@ -24,6 +24,7 @@
         Cookies.set('dropboxToken', token['refresh_token'], { expires: 365 });
         this.dbx.auth.setRefreshToken(token['refresh_token']);
         this.updateDropboxClient(this.dbx);
+        this.setAuthenticated();
       }
     },
     methods:{
@@ -40,7 +41,7 @@
         const authUrl = await Storage.getDropboxAuthUrl(this.dbx);
         location.href = authUrl;
       },
-      ...mapActions(useStorageStore, ['updateDropboxClient'])
+      ...mapActions(useStorageStore, ['updateDropboxClient', 'setAuthenticated'])
     },
     computed: {
       ...mapState(useStorageStore, ['dbx'])
