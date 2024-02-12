@@ -15,6 +15,7 @@ import { mapState, mapActions } from 'pinia';
 import { useStorageStore } from './stores/storage';
 import Sidemenu from '@/components/Sidemenu.vue';
 import Footer from '@/components/Footer.vue';
+import Storage from '@/lib/Storage';
 
 export default {
   name: 'App',
@@ -26,7 +27,8 @@ export default {
     //Load saved access token from cookies
     const dropboxToken = Cookies.get('dropboxToken');
     if(dropboxToken){
-      this.setDropboxAccessToken(dropboxToken);
+      //this.setDropboxAccessToken(dropboxToken);
+      //Storage.refreshToken(dropboxToken);
     }
   },
   methods:{

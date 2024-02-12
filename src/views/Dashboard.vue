@@ -1,9 +1,15 @@
 <template>
-  <div class="right-content dashboard">
+  <div class="right-content">
     <div class="main-content">
       <div class="inner-content">
+        <h1 class="page-header">Dashboard</h1>
         <ConnectDropbox v-if="!dropboxAccessToken"/>
-        Hello ! Dropbox connected.
+        <div class="dashboard" v-else>
+          <div class="welcome-message">
+            Welcome to Falcon Notes ! Let's start taking note.
+          </div>
+          <LatestNotes />
+        </div>
       </div>
     </div>
   </div>
@@ -12,12 +18,14 @@
 <script>
 import { mapState } from 'pinia';
 import { useStorageStore } from '../stores/storage';
-import ConnectDropbox from '@/components/ConnectDropbox.vue';
+import ConnectDropbox from '@/components/Dashboard/ConnectDropbox.vue';
+import LatestNotes from '@/components/Dashboard/LatestNotes.vue';
 
 export default {
   name: 'Dashboard',
   components: {
     ConnectDropbox,
+    LatestNotes
   },
   computed: {
     ...mapState(useStorageStore, ['dropboxAccessToken'])

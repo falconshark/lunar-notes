@@ -1,14 +1,18 @@
 import { defineStore } from 'pinia'
+import { Dropbox } from 'dropbox';
+
+const clientId = import.meta.env.VITE_DROPBOX_APP_ID;
+const dbx = new Dropbox({ clientId: clientId });
 
 export const useStorageStore = defineStore('storage', {
   state: () => {
     return {
-      dropboxAccessToken: null,
+      dbx: dbx,
     }
   },
   actions: {
-    setDropboxAccessToken(token) {
-      this.dropboxAccessToken = token;
+    updateDropboxClient(dbx) {
+      this.dbx = dbx;
     },
   },
 })

@@ -19,12 +19,6 @@ body {
   margin-top: 10px;
 }
 
-.login {
-  height: 100vh;
-  background-color: white;
-  text-align: center;
-}
-
 .right-content {
   margin-left: 270px;
   min-height: 93vh;
@@ -33,13 +27,16 @@ body {
   flex-direction: column;
   justify-content: center;
 }
+.right-content .page-header {
+  margin-bottom: 20px;
+}
+.right-content .page-subheader {
+  font-size: 1.5em;
+  margin-top: 50px;
+}
 .right-content .main-content {
   padding-left: 50px;
   padding-right: 50px;
-}
-
-.page-header h1 {
-  font-size: 1.5em;
 }
 
 .page-content {
