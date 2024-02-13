@@ -1,4 +1,3 @@
-import { Dropbox } from 'dropbox';
 import queryString from 'query-string';
 
 const Storage = {
@@ -31,10 +30,20 @@ const Storage = {
     },
     async loadDropboxContent(dbx){
         try{
-            const dropboxLists = await dbx.filesListFolder({path: '/Apps/FalonNoteTaking'});
+            let dropboxLists = await dbx.filesListFolder({path: ''});
+            dropboxLists = dropboxLists['result']['entries'];
+            return dropboxLists;
         }catch(ex){
             console.log(ex);
         }
+    },
+    //Filter file and get html file (Notes) only.
+    filterDropboxFiles(dropboxLists){
+        const noteFiles = dropboxLists.filter((file) => {
+            const fileTypeRegax = /^(.+)\.(html)$/;
+            return file['.tag'] === 'file' && file['name'].match(fileTypeRegax)[2] === 'html';
+        });
+        return noteFiles;
     },
 }
 

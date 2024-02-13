@@ -17,14 +17,16 @@ export default {
         this.loadStorageContent();
     },
     methods: {
-        loadStorageContent(){
-            if(this.dropboxAccessToken){
-                //const notes = Storage.loadDropboxContent(this.dropboxAccessToken);
+        async loadStorageContent(){
+            if(this.authenticated){
+                const folderContent = await Storage.loadDropboxContent(this.dbx);
+                const noteFiles = Storage.filterDropboxFiles(folderContent);
+                const notes = Storage.readNotesFiles(notesFiles);
             }
         },
     },
     computed: {
-        ...mapState(useStorageStore, ['dropboxAccessToken'])
+        ...mapState(useStorageStore, ['dbx', 'authenticated'])
     },
 }
 </script>
