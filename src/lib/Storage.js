@@ -28,7 +28,7 @@ const Storage = {
             console.error(ex);
         }
     },
-    async loadDropboxContent(dbx){
+    async listDropboxFiles(dbx){
         try{
             let dropboxLists = await dbx.filesListFolder({path: ''});
             dropboxLists = dropboxLists['result']['entries'];
@@ -44,6 +44,15 @@ const Storage = {
             return file['.tag'] === 'file' && file['name'].match(fileTypeRegax)[2] === 'html';
         });
         return noteFiles;
+    },
+    async downloadDropboxFiles(dbx, noteFiles){
+        const notes = [];
+        for(let i = 0; i < noteFiles.length; i++){
+            const noteFile = noteFiles[i];;
+            const response = await dbx.filesDownload({path: noteFile['path_lower']});
+            const fileBlob = response.result.fileBlob;
+            const noteFileContent = await fileBlob.text();
+        }
     },
 }
 

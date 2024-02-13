@@ -19,9 +19,9 @@ export default {
     methods: {
         async loadStorageContent(){
             if(this.authenticated){
-                const folderContent = await Storage.loadDropboxContent(this.dbx);
+                const folderContent = await Storage.listDropboxFiles(this.dbx);
                 const noteFiles = Storage.filterDropboxFiles(folderContent);
-                const notes = Storage.readNotesFiles(notesFiles);
+                const notes = Storage.downloadDropboxFiles(this.dbx, noteFiles);
             }
         },
     },
