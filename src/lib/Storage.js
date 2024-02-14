@@ -52,7 +52,9 @@ const Storage = {
             const response = await dbx.filesDownload({path: noteFile['path_lower']});
             const fileBlob = response.result.fileBlob;
             const noteFileContent = await fileBlob.text();
+            notes.push(noteFileContent);
         }
+        return notes;
     },
 }
 
