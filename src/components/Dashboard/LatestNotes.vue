@@ -3,7 +3,8 @@
         <h2 class="page-subheader">
             Latest Notes
         </h2>
-        <div class="notes">
+        <Loader v-if="loading"/>
+        <div class="notes" v-else>
             <div class="card note" v-for="note in notes">
                 <div class="note-main-info">
                     <div class="note-title">
@@ -21,17 +22,22 @@
 <script>
 import { mapState } from 'pinia';
 import { useStorageStore } from '@/stores/storage';
+import Loader from '@/components/common/Loading.vue';
 import Storage from '@/lib/Storage';
 import Note from '@/lib/Note';
 
 export default {
     name: 'LatestNotes',
+    components:{
+        Loader
+    },
     mounted(){
         this.loadStorageContent();
     },
     data(){
         return {
             notes: [],
+            loading: true,
         }
     },
     methods: {
@@ -42,6 +48,7 @@ export default {
                 const notes = await Storage.downloadDropboxFiles(this.dbx, noteFiles);
                 const notesPreview = Note.previewNotes(notes);
                 this.notes = notesPreview;
+                this.loading = false;
             }
         },
     },
@@ -52,9 +59,11 @@ export default {
 </script>
     
 <style scoped lang="scss">
+.page-subheader{
+    margin-bottom: 30px;
+}
 .notes{
     display: flex;
-    margin-top: 30px;
     flex-wrap: wrap;
     min-height: 253px;
     .note{
