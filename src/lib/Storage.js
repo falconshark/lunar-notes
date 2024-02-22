@@ -48,10 +48,14 @@ const Storage = {
     async downloadDropboxFiles(dbx, noteFiles){
         const notes = [];
         for(let i = 0; i < noteFiles.length; i++){
-            const noteFile = noteFiles[i];;
+            const noteFile = noteFiles[i];
+            const fileUpdateDate = noteFile['client_modified'];
             const response = await dbx.filesDownload({path: noteFile['path_lower']});
             const fileBlob = response.result.fileBlob;
-            const noteFileContent = await fileBlob.text();
+            const noteFileContent = {
+                text: await fileBlob.text(),
+                date: fileUpdateDate,
+            };
             notes.push(noteFileContent);
         }
         return notes;

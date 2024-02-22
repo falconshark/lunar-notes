@@ -5,11 +5,13 @@ const Note = {
         const previews = [];
         for(let i = 0; i < notes.length; i++){
             const note = notes[i];
-            const noteContent = this._parseNote(note);
+            const noteDate = note.date;
+            const noteContent = this._parseNote(note.text);
             const noteSummary = this._cleanText(noteContent['body']);
             const notePreview = {
                 title: noteContent['title'],
                 summary: noteSummary.substring(0, 150),
+                date: noteDate
             };
             previews.push(notePreview);
         }

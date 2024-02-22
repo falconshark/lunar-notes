@@ -14,6 +14,9 @@
                         {{ note.summary }}
                     </div>
                 </div>
+                <div class="note-date">
+                    {{ parseDate(note.date) }}
+                </div>
             </div>
         </div>
     </div>
@@ -23,6 +26,7 @@
 import { mapState } from 'pinia';
 import { useStorageStore } from '@/stores/storage';
 import Loader from '@/components/common/Loading.vue';
+import Common from '@/lib/Common';
 import Storage from '@/lib/Storage';
 import Note from '@/lib/Note';
 
@@ -41,12 +45,16 @@ export default {
         }
     },
     methods: {
+        parseDate(dateString){
+            const date = Common.parseDate(dateString, 'MMM Do YYYY');
+            return date;
+        },
         async loadStorageContent(){
             if(this.authenticated){
                 const folderContent = await Storage.listDropboxFiles(this.dbx);
-                const noteFiles = Storage.filterDropboxFiles(folderContent);
+                const noteFiles = await Storage.filterDropboxFiles(folderContent);
                 const notes = await Storage.downloadDropboxFiles(this.dbx, noteFiles);
-                const notesPreview = Note.previewNotes(notes);
+                const notesPreview = await Note.previewNotes(notes);
                 this.notes = notesPreview;
                 this.loading = false;
             }
@@ -67,7 +75,10 @@ export default {
     flex-wrap: wrap;
     min-height: 253px;
     .note{
-        padding: 15px 50px 0px 20px;
+        padding: 15px 50px 10px 20px;
+    }
+    .note-main-info{
+        flex: 1;
     }
     .note-title{
         font-weight: bold;
@@ -75,6 +86,9 @@ export default {
     }
     .note-content{
         margin-top: 30px;
+    }
+    .note-date{
+        text-align: right;
     }
 }
 </style>

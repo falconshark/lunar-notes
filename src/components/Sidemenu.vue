@@ -14,10 +14,10 @@
     <div class="flex-grow" />
     <div class="menu-item-wrapper" v-for="menuItem in menuItems">
       <el-menu-item :index="menuItem.index" v-if="menuItem.type === 'menu-item'">
-        <a :href="menuItem.link">
+        <router-link :to="menuItem.link">
           <i :class="menuItem.icon"></i>
           {{ menuItem.title }}
-        </a>
+        </router-link>
       </el-menu-item>
       <el-sub-menu :index="menuItem.index" v-else>
         <template #title>
@@ -25,7 +25,9 @@
           <a href="#">{{ menuItem.title }}</a>
         </template>
         <el-menu-item v-for="subItem in menuItem.submenu" :index="subItem.index">
-          <a :href="subItem.link">{{ subItem.title }}</a>
+          <router-link :to="subItem.link">
+          {{ subItem.title }}
+        </router-link>
         </el-menu-item>
       </el-sub-menu>
     </div>
@@ -46,7 +48,7 @@ export default {
           'type': 'menu-item',
           'icon': 'bi bi-house-door-fill',
           'title': 'Dashboard',
-          'link': '/dashboard',
+          'link': '/',
         },
         {
           'index': '2',

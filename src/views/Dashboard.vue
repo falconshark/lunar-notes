@@ -7,6 +7,7 @@
         <div class="dashboard" v-else>
           <div class="welcome-message">
             Welcome to Falcon Notes ! Let's start taking note.
+            
           </div>
           <LatestNotes />
         </div>
