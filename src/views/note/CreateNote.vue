@@ -3,13 +3,19 @@
     <div class="main-content">
       <div class="inner-content">
         <h1 class="page-header">
-          <div class="header-text">Create Note</div>
           <div class="action-buttons">
-            <button class="btn btn-primary">Save</button>
+            <button class="btn btn-primary" @click="save">Save</button>
           </div>
         </h1>
+        <div class="note-info-wrapper">
+          <input id="note-title" class="input-text" v-model="noteTitle" placeholder="New Note" type="text" />
+          <div class="notebook-select">
+            <i class="bi bi-book"></i>
+            Uncategorized
+          </div>
+        </div>
         <div class="note-editor">
-          <QuillEditor theme="snow" />
+          <QuillEditor ref="editor" theme="snow" />
         </div>
       </div>
     </div>
@@ -25,6 +31,17 @@
     components: {
         QuillEditor,
     },
+    data(){
+      return {
+        noteTitle: '',
+      };
+    },
+    methods: {
+      async save(){
+        const title = this.noteTitle;
+        const content = this.$refs.editor.getHTML();
+      },
+    },
   }
   </script>
   
@@ -32,9 +49,33 @@
   .page-header{
     display: flex;
     align-items: center;
+    .action-buttons{
+      text-align: right;
+      width: 100%;
+      .btn{
+        display: inline-block;
+      }
+    }
   }
-  .header-text{
-    flex: 1;
+  .note-info-wrapper{
+    margin-bottom: 20px;
+    .input-text{
+      font-size: 1.5em;
+      font-weight: bold;
+      border: 0;
+      width: 100%;
+      border-bottom: 1px solid #ddd;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
   }
+  .notebook-select{
+    .bi{
+      margin-top: 10px;
+      font-size: 1.2em;
+      color: rgb(127, 127, 127);
+    }
+  }
+
   </style>
   
