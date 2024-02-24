@@ -13,7 +13,8 @@ body{
   display: block;
 }
 .btn:not(.disabled):hover{
-  margin-top: 10px;
+  margin-top: auto;
+  border-bottom-width: 4px;
 }
 
 .right-content{
@@ -36,6 +37,10 @@ body{
   .main-content{
     padding-left: 50px;
     padding-right: 50px;
+  }
+  .inner-content{
+    background-color: white;
+    padding: 50px;
   }
 }
 
@@ -131,4 +136,10 @@ body{
       color: red;
     }
   }
+}
+
+/* Editor */
+.ql-editor{
+  min-height: 400px;
+  font-size: 15px;
 }

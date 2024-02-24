@@ -8,7 +8,12 @@ const router = createRouter({
       name: 'Dashboard',
       component: () => import('../views/Dashboard.vue')
     },
+    {
+      path: '/note/create',
+      name: 'CreateNote',
+      component: () => import('../views/note/CreateNote.vue')
+    },
   ]
 })
 
-export default router
+export default router;

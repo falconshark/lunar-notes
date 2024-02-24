@@ -6,8 +6,12 @@
         <ConnectDropbox v-if="!authenticated"/>
         <div class="dashboard" v-else>
           <div class="welcome-message">
-            Welcome to Falcon Notes ! Let's start taking note.
-            
+            <div class="message-text">
+              Welcome to Falcon Notes ! Let's start taking note.
+            </div>
+            <router-link to="/note/create" class="btn btn-primary btn-create">
+              Create New Note
+            </router-link>
           </div>
           <LatestNotes />
         </div>
@@ -35,8 +39,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.inner-content{
-  background-color: white;
-  padding: 50px;
+.btn-create{
+  display: inline-block;
+}
+.message-text{
+  margin-bottom: 20px;
 }
 </style>

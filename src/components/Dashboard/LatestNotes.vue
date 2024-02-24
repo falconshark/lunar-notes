@@ -75,7 +75,7 @@ export default {
     flex-wrap: wrap;
     min-height: 253px;
     .note{
-        padding: 15px 50px 10px 20px;
+        padding: 15px 20px 10px 20px;
     }
     .note-main-info{
         flex: 1;

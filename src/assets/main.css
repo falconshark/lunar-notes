@@ -16,7 +16,8 @@ body {
 }
 
 .btn:not(.disabled):hover {
-  margin-top: 10px;
+  margin-top: auto;
+  border-bottom-width: 4px;
 }
 
 .right-content {
@@ -37,6 +38,10 @@ body {
 .right-content .main-content {
   padding-left: 50px;
   padding-right: 50px;
+}
+.right-content .inner-content {
+  background-color: white;
+  padding: 50px;
 }
 
 .page-content {
@@ -120,4 +125,10 @@ body {
 }
 .action-links .action-link.danger {
   color: red;
+}
+
+/* Editor */
+.ql-editor {
+  min-height: 400px;
+  font-size: 15px;
 }/*# sourceMappingURL=main.css.map */
