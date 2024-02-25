@@ -134,6 +134,30 @@ input:focus {
   color: red;
 }
 
+/* Notes Listing */
+.notes {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 253px;
+}
+.notes .note {
+  padding: 15px 20px 10px 20px;
+  margin-right: 20px;
+}
+.notes .note-main-info {
+  flex: 1;
+}
+.notes .note-title {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+.notes .note-content {
+  margin-top: 30px;
+}
+.notes .note-date {
+  text-align: right;
+}
+
 /* Editor */
 .ql-editor {
   min-height: 400px;

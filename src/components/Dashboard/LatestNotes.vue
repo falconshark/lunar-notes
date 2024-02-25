@@ -46,13 +46,25 @@ export default {
     },
     methods: {
         parseDate(dateString){
-            const date = Common.parseDate(dateString, 'MMM Do YYYY');
+            const date = Common.parseDate(dateString, 'Do MMM YYYY');
             return date;
         },
         async loadStorageContent(){
             if(this.authenticated){
-                const folderContent = await Storage.listDropboxFiles(this.dbx);
-                const noteFiles = await Storage.filterDropboxFiles(folderContent);
+                let storageContent = [];
+                const rootFolderContent = await Storage.listDropboxFiles(this.dbx, '');
+                //Get all content inculde notebook
+                for(let i = 0; i < rootFolderContent.length; i++){
+                    const folderContent = rootFolderContent[i];
+                    if(folderContent['.tag'] === 'folder'){
+                        let subFolderContent = await Storage.listDropboxFiles(this.dbx, folderContent['path_lower']);
+                        storageContent = storageContent.concat(subFolderContent);
+                    }else{
+                        storageContent.push(folderContent);
+                    }
+                }
+                console.log(storageContent);
+                const noteFiles = await Storage.filterDropboxFiles(storageContent);
                 const notes = await Storage.downloadDropboxFiles(this.dbx, noteFiles);
                 const notesPreview = await Note.previewNotes(notes);
                 this.notes = notesPreview;
@@ -69,27 +81,6 @@ export default {
 <style scoped lang="scss">
 .page-subheader{
     margin-bottom: 30px;
-}
-.notes{
-    display: flex;
-    flex-wrap: wrap;
-    min-height: 253px;
-    .note{
-        padding: 15px 20px 10px 20px;
-    }
-    .note-main-info{
-        flex: 1;
-    }
-    .note-title{
-        font-weight: bold;
-        font-size: 1.1em;
-    }
-    .note-content{
-        margin-top: 30px;
-    }
-    .note-date{
-        text-align: right;
-    }
 }
 </style>
     

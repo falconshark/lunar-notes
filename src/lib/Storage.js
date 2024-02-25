@@ -28,13 +28,19 @@ const Storage = {
             console.error(ex);
         }
     },
-    async listDropboxFiles(dbx){
+    async listDropboxFiles(dbx, path){
         try{
-            let dropboxLists = await dbx.filesListFolder({path: ''});
+            let dropboxLists = await dbx.filesListFolder({path: path});
             dropboxLists = dropboxLists['result']['entries'];
             return dropboxLists;
         }catch(ex){
-            console.log(ex);
+            if(ex == 'DropboxResponseError: Response failed with a 409 code'){
+                const error = {
+                    'code': 409,
+                    'message': ex,
+                };
+                throw error;
+            }
         }
     },
     //Filter file and get html file (Notes) only.
@@ -59,6 +65,14 @@ const Storage = {
             notes.push(noteFileContent);
         }
         return notes;
+    },
+    async createDropboxFolder(dbx, folderName){
+        try{
+            await dbx.filesCreateFolderV2({path: `/${folderName}`});
+            return true;
+        }catch(ex){
+            return false;
+        }
     },
 }
 
