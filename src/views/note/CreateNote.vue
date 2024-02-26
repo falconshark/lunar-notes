@@ -2,61 +2,24 @@
   <div class="right-content">
     <div class="main-content">
       <div class="inner-content">
-        <h1 class="page-header">
-          <div class="action-buttons">
-            <button class="btn btn-primary" @click="save">Save</button>
-          </div>
-        </h1>
-        <div class="note-info-wrapper">
-          <input id="note-title" class="input-text" v-model="noteTitle" placeholder="New Note" type="text" />
-          <div class="notebook-select">
-            <i class="bi bi-book"></i>
-            Uncategorized
-          </div>
-        </div>
-        <div class="note-editor">
-          <QuillEditor ref="editor" theme="snow" />
-        </div>
+        <NoteForm action="create"/>
       </div>
     </div>
   </div>
 </template>
   
   <script>
-  import { QuillEditor } from '@vueup/vue-quill'
-  import '@vueup/vue-quill/dist/vue-quill.snow.css';
+  import NoteForm from '@/components/Note/NoteForm.vue';
 
   export default {
     name: 'CreateNote',
     components: {
-        QuillEditor,
-    },
-    data(){
-      return {
-        noteTitle: '',
-      };
-    },
-    methods: {
-      async save(){
-        const title = this.noteTitle;
-        const content = this.$refs.editor.getHTML();
-      },
+        NoteForm,
     },
   }
   </script>
   
   <style lang="scss" scoped>
-  .page-header{
-    display: flex;
-    align-items: center;
-    .action-buttons{
-      text-align: right;
-      width: 100%;
-      .btn{
-        display: inline-block;
-      }
-    }
-  }
   .note-info-wrapper{
     margin-bottom: 20px;
     .input-text{
@@ -70,6 +33,7 @@
     }
   }
   .notebook-select{
+    margin-top: 10px;
     .bi{
       margin-top: 10px;
       font-size: 1.2em;

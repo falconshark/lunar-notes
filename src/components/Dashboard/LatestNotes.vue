@@ -63,7 +63,6 @@ export default {
                         storageContent.push(folderContent);
                     }
                 }
-                console.log(storageContent);
                 const noteFiles = await Storage.filterDropboxFiles(storageContent);
                 const notes = await Storage.downloadDropboxFiles(this.dbx, noteFiles);
                 const notesPreview = await Note.previewNotes(notes);
