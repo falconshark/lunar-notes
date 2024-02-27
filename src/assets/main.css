@@ -138,11 +138,12 @@ input:focus {
 .notes {
   display: flex;
   flex-wrap: wrap;
-  min-height: 253px;
 }
 .notes .note {
   padding: 15px 20px 10px 20px;
   margin-right: 20px;
+  min-height: 253px;
+  width: 266px;
 }
 .notes .note-main-info {
   flex: 1;

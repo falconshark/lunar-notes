@@ -20,6 +20,23 @@ const Note = {
     readNote(html){
 
     },
+    //Create html file which contain note content
+    createNoteHtml(title, content){
+        const noteHtml = `<!DOCTYPE html>
+        <html>
+            <head>
+                <meta charset="utf-8">
+                <title>${title}</title>
+            </head>
+            <body>
+                <h1 class="note-title">${title}</h1>
+                <div class="note-content">
+                  ${content}
+                </div>
+            </body>
+        </html>`;
+        return noteHtml;
+    },
     //Parse downloaded html file to note.
     _parseNote(html){
         const $ = cheerio.load(html);

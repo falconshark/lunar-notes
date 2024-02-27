@@ -43,6 +43,12 @@ const Storage = {
             }
         }
     },
+    filterDropboxFolders(dropboxLists){
+        const folders = dropboxLists.filter((file) => {
+            return file['.tag'] === 'folder';
+        });
+        return folders;
+    },
     //Filter file and get html file (Notes) only.
     filterDropboxFiles(dropboxLists){
         const noteFiles = dropboxLists.filter((file) => {
@@ -71,6 +77,15 @@ const Storage = {
             await dbx.filesCreateFolderV2({path: `/${folderName}`});
             return true;
         }catch(ex){
+            return false;
+        }
+    },
+    async createDropboxFile(dbx, filename, content){
+        try{
+            const response = await dbx.filesUpload({path: filename, contents: content});
+            return response;
+        }catch(ex){
+            console.error(ex);
             return false;
         }
     },

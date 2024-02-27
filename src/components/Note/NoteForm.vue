@@ -8,7 +8,7 @@
             <div class="notebook-select">
                 <i class="bi bi-book"></i>
                 <el-select v-model="notebook" filterable placeholder="请选择">
-                    <el-option v-for="notebook in notebooks" :key="notebook" :label="notebook" :value="notebook"></el-option>
+                    <el-option v-for="notebook in notebooks" :key="notebook.path" :label="notebook.name" :value="notebook.path"></el-option>
                 </el-select>
             </div>
         </div>
@@ -19,7 +19,11 @@
 </template>
     
 <script>
+import { mapState } from 'pinia';
+import { useStorageStore } from '@/stores/storage';
 import { QuillEditor } from '@vueup/vue-quill'
+import Storage from '@/lib/Storage';
+import Note from '@/lib/Note';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
 export default {
@@ -30,20 +34,41 @@ export default {
     props: {
         action: String,
     },
+    mounted(){
+        this.loadNotebooks();
+    },
     data() {
         return {
             noteTitle: '',
             notebook: 'Uncategorized',
-            notebooks: ['Uncategorized'],
+            notebooks: [{'name': 'Uncategorized', 'path': ''}],
         };
     },
     methods: {
+        async loadNotebooks(){
+            const rootFolderContent = await Storage.listDropboxFiles(this.dbx, '');
+            const folders = await Storage.filterDropboxFolders(rootFolderContent);
+            const notebooks = [];
+            for(let i = 0; i < folders.length; i++){
+                let notebook = folders[i];
+                notebook = {
+                    name: notebook.name,
+                    path: notebook.path_lower,
+                };
+                notebooks.push(notebook);
+            }
+            this.notebooks = this.notebooks.concat(notebooks);
+        },
         async save() {
             const title = this.noteTitle;
+            const notebook = this.notebook;
             const content = this.$refs.editor.getHTML();
-            switch (action) {
+            switch (this.action) {
                 case 'create':
-
+                    const noteHtml = Note.createNoteHtml(title, content);
+                    const fileName = `/${notebook}/${title}.html`;
+                    const fileResult = await Storage.createDropboxFile(this.dbx, fileName, noteHtml);
+                    console.log(fileResult);
                     break;
                 case 'update':
                     break;
@@ -51,6 +76,9 @@ export default {
                     break;
             }
         },
+    },
+    computed: {
+        ...mapState(useStorageStore, ['dbx'])
     },
 }
 </script>
