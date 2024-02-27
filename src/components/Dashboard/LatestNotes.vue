@@ -64,7 +64,8 @@ export default {
                     }
                 }
                 const noteFiles = await Storage.filterDropboxFiles(storageContent);
-                const notes = await Storage.downloadDropboxFiles(this.dbx, noteFiles);
+                let notes = await Storage.downloadDropboxFiles(this.dbx, noteFiles);
+                notes = Note.sortNotes(notes);
                 const notesPreview = await Note.previewNotes(notes);
                 this.notes = notesPreview;
                 this.loading = false;

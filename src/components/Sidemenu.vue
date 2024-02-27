@@ -142,6 +142,8 @@ export default {
   a{
     color: white;
     font-size: 16px;
+    display: block;
+    width: 100%;
     &:hover{
       text-decoration: none;
     }

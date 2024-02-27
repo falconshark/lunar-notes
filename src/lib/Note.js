@@ -37,6 +37,15 @@ const Note = {
         </html>`;
         return noteHtml;
     },
+    //Sort Notes by last edit date.
+    sortNotes(notes){
+        notes.sort(function(a, b){
+            const dateA = new Date(a.date).getTime();
+            const dateB = new Date(b.date).getTime();
+            return dateB - dateA;
+        });
+        return notes;
+    },
     //Parse downloaded html file to note.
     _parseNote(html){
         const $ = cheerio.load(html);
