@@ -66,9 +66,14 @@ export default {
             switch (this.action) {
                 case 'create':
                     const noteHtml = Note.createNoteHtml(title, content);
-                    const fileName = `/${notebook}/${title}.html`;
+                    //By default, save the file to target notebook (folder)
+                    let fileName = `${notebook}/${title}.html`;
+                    console.log(fileName);
+                    //But if target notebook is 'Uncategorized', save it to root folder
+                    if(notebook === 'Uncategorized'){
+                        fileName = `/${title}.html`;
+                    }
                     const fileResult = await Storage.createDropboxFile(this.dbx, fileName, noteHtml);
-                    console.log(fileResult);
                     break;
                 case 'update':
                     break;
