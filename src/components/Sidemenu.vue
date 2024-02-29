@@ -5,33 +5,28 @@
         Falcon Note Taking
       </div>
     </div>
-    <el-menu
-    :default-active="activeIndex"
-    background-color="#158CBA"
-    text-color="#ffffff"
-    class="sidemenu-inner"
-    >
-    <div class="flex-grow" />
-    <div class="menu-item-wrapper" v-for="menuItem in menuItems">
-      <el-menu-item :index="menuItem.index" v-if="menuItem.type === 'menu-item'">
-        <router-link :to="menuItem.link">
-          <i :class="menuItem.icon"></i>
-          {{ menuItem.title }}
-        </router-link>
-      </el-menu-item>
-      <el-sub-menu :index="menuItem.index" v-else>
-        <template #title>
-          <i :class="menuItem.icon"></i>
-          <a href="#">{{ menuItem.title }}</a>
-        </template>
-        <el-menu-item v-for="subItem in menuItem.submenu" :index="subItem.index">
-          <router-link :to="subItem.link">
-          {{ subItem.title }}
-        </router-link>
+    <el-menu :default-active="activeIndex" background-color="#158CBA" text-color="#ffffff" class="sidemenu-inner">
+      <div class="flex-grow" />
+      <div class="menu-item-wrapper" v-for="menuItem in menuItems">
+        <el-menu-item :index="menuItem.index" v-if="menuItem.type === 'menu-item'">
+          <router-link :to="menuItem.link">
+            <i :class="menuItem.icon"></i>
+            {{ menuItem.title }}
+          </router-link>
         </el-menu-item>
-      </el-sub-menu>
-    </div>
-  </el-menu>
+        <el-sub-menu :index="menuItem.index" v-else>
+          <template #title>
+            <i :class="menuItem.icon"></i>
+            <a href="#">{{ menuItem.title }}</a>
+          </template>
+          <el-menu-item v-for="subItem in menuItem.submenu" :index="subItem.index">
+            <router-link :to="subItem.link">
+              {{ subItem.title }}
+            </router-link>
+          </el-menu-item>
+        </el-sub-menu>
+      </div>
+    </el-menu>
   </div>
 </template>
 
@@ -39,8 +34,8 @@
 
 export default {
   name: 'Sidemenu',
-  data(){
-    return{
+  data() {
+    return {
       activeIndex: '1',
       menuItems: [
         {
@@ -78,26 +73,26 @@ export default {
       ],
     }
   },
-  mounted(){
+  mounted() {
     this.checkActive();
   },
-  methods:{
+  methods: {
     //Check current active menu item
-    checkActive(){
+    checkActive() {
       let activeIndex = '';
       const currentPath = window.location.pathname;
-      for(let i = 0; i < this.menuItems.length; i++){
+      for (let i = 0; i < this.menuItems.length; i++) {
         const menuItem = this.menuItems[i];
         //If the menu item do not had submenu
-        if(menuItem.type === 'menu-item'){
-          if(menuItem.link === currentPath){
+        if (menuItem.type === 'menu-item') {
+          if (menuItem.link === currentPath) {
             activeIndex = menuItem.index;
             return;
           }
-        }else{
+        } else {
           //If the menu item had submenu
-          menuItem['submenu'].forEach(function(item){
-            if(item.link === currentPath){
+          menuItem['submenu'].forEach(function (item) {
+            if (item.link === currentPath) {
               activeIndex = item.index;
               return;
             }
@@ -111,7 +106,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.logo-sidemenu{
+.logo-sidemenu {
   padding-top: 15px;
   padding-bottom: 15px;
   margin-left: 25px;
@@ -120,11 +115,13 @@ export default {
   font-weight: bold;
   display: flex;
   align-items: center;
-  img{
+
+  img {
     width: 30%;
   }
 }
-.sidemenu{
+
+.sidemenu {
   width: 270px;
   background: #158CBA;
   overflow: hidden;
@@ -135,29 +132,31 @@ export default {
   left: 0;
   min-height: 100vh;
 
-  .el-menu{
+  .el-menu {
     right: -1px;
   }
 
-  a{
+  a {
     color: white;
     font-size: 16px;
     display: block;
     width: 100%;
-    &:hover{
+
+    &:hover {
       text-decoration: none;
     }
   }
 
-  .bi{
+  .bi {
     margin-right: 10px;
     font-size: 1.3em;
-    &.bi-filter-square-fill{
+
+    &.bi-filter-square-fill {
       margin-right: 16px;
     }
   }
 
-  .sidemenu-menu{
+  .sidemenu-menu {
     border-right: 0;
   }
 }

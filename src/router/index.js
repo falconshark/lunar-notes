@@ -18,6 +18,11 @@ const router = createRouter({
       name: 'CreateNote',
       component: () => import('../views/Note/CreateNote.vue')
     },
+    {
+      path: '/note/:notebook/:date/:filename',
+      name: 'Note',
+      component: () => import('../views/Note/Note.vue')
+    },
   ]
 })
 

@@ -1,6 +1,16 @@
 import cheerio from 'cheerio';
 
 const Note = {
+    getNotebook(filePath){
+        const notebookRegax = /(.+)\/(.+\.html)/;
+        let notebook = notebookRegax.exec(filePath);
+        //If notebook is null, mark it to 'uncategorized'.
+        if(!notebook){
+            return 'uncategorized';
+        }
+        notebook = notebookRegax.exec(filePath)[1];
+        return notebook;
+    },
     previewNotes(notes){
         const previews = [];
         for(let i = 0; i < notes.length; i++){
@@ -10,6 +20,7 @@ const Note = {
             const noteSummary = this._cleanText(noteContent['body']);
             const notePreview = {
                 title: noteContent['title'],
+                path: note.path,
                 summary: noteSummary.substring(0, 150),
                 date: noteDate
             };
@@ -17,7 +28,7 @@ const Note = {
         }
         return previews;
     },
-    readNote(html){
+    loadNote(html){
 
     },
     //Create html file which contain note content

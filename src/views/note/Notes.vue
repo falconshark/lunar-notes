@@ -3,23 +3,26 @@
     <div class="main-content">
       <div class="inner-content">
         <div class="latest-notes-wrapper">
-          <h2 class="page-header">
+          <h1 class="page-header">
             Notes
-          </h2>
+          </h1>
           <Loader v-if="loading" />
           <div class="notes" v-else>
             <div class="card note" v-for="note in notes">
-              <div class="note-main-info">
-                <div class="note-title">
-                  {{ note.title }}
+              <router-link :to="{name:'Note', params: { notebook: getNotebook(note.path), 
+                date: parseDate(note.date, 'MM-DD-YYYY'), filename: note.title }}">
+                <div class="note-main-info">
+                  <div class="note-title">
+                    {{ note.title }}
+                  </div>
+                  <div class="note-content">
+                    {{ note.summary }}
+                  </div>
                 </div>
-                <div class="note-content">
-                  {{ note.summary }}
+                <div class="note-date">
+                  {{ parseDate(note.date, 'Do MMM YYYY') }}
                 </div>
-              </div>
-              <div class="note-date">
-                {{ parseDate(note.date) }}
-              </div>
+              </router-link>
             </div>
           </div>
         </div>
@@ -51,8 +54,12 @@ export default {
     }
   },
   methods: {
-    parseDate(dateString) {
-      const date = Common.parseDate(dateString, 'Do MMM YYYY');
+    getNotebook(notePath){
+      const notebook = Note.getNotebook(notePath);
+      return notebook;
+    },
+    parseDate(dateString, format) {
+      const date = Common.parseDate(dateString, format);
       return date;
     },
     async loadStorageContent() {

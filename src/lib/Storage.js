@@ -66,6 +66,7 @@ const Storage = {
             const fileBlob = response.result.fileBlob;
             const noteFileContent = {
                 text: await fileBlob.text(),
+                path: noteFile['path_lower'],
                 date: fileUpdateDate,
             };
             notes.push(noteFileContent);

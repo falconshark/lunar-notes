@@ -36,7 +36,7 @@ input:focus {
   justify-content: center;
 }
 .right-content .page-header {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 .right-content .page-subheader {
   font-size: 1.5em;
@@ -144,6 +144,13 @@ input:focus {
   margin-right: 20px;
   min-height: 253px;
   width: 266px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.notes .note a {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  color: black;
 }
 .notes .note-main-info {
   flex: 1;

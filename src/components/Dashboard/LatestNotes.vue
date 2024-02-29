@@ -25,7 +25,7 @@
 <script>
 import { mapState } from 'pinia';
 import { useStorageStore } from '@/stores/storage';
-import Loader from '@/components/common/Loading.vue';
+import Loader from '@/components/Common/Loading.vue';
 import Common from '@/lib/Common';
 import Storage from '@/lib/Storage';
 import Note from '@/lib/Note';
