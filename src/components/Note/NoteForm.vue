@@ -21,7 +21,8 @@
 <script>
 import { mapState } from 'pinia';
 import { useStorageStore } from '@/stores/storage';
-import { QuillEditor } from '@vueup/vue-quill'
+import { QuillEditor } from '@vueup/vue-quill';
+import Common from '@/lib/Common';
 import Storage from '@/lib/Storage';
 import Note from '@/lib/Note';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
@@ -65,15 +66,20 @@ export default {
             const content = this.$refs.editor.getHTML();
             switch (this.action) {
                 case 'create':
+                    const currentDate = Common.genDate();
                     const noteHtml = Note.createNoteHtml(title, content);
                     //By default, save the file to target notebook (folder)
-                    let fileName = `${notebook}/${title}.html`;
-                    console.log(fileName);
+                    let fileName = `${notebook}/${title}-${currentDate}.html`;
                     //But if target notebook is 'Uncategorized', save it to root folder
                     if(notebook === 'Uncategorized'){
-                        fileName = `/${title}.html`;
+                        fileName = `/${title}-${currentDate}.html`;
                     }
-                    const fileResult = await Storage.createDropboxFile(this.dbx, fileName, noteHtml);
+                    try{
+                        await Storage.createDropboxFile(this.dbx, fileName, noteHtml);
+                        this.$router.push({'path': '/notes'});
+                    }catch(ex){
+                        console.error(ex);
+                    }
                     break;
                 case 'update':
                     break;
