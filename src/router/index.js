@@ -9,9 +9,14 @@ const router = createRouter({
       component: () => import('../views/Dashboard.vue')
     },
     {
+      path: '/notes',
+      name: 'Notes',
+      component: () => import('../views/Note/Notes.vue')
+    },
+    {
       path: '/note/create',
       name: 'CreateNote',
-      component: () => import('../views/note/CreateNote.vue')
+      component: () => import('../views/Note/CreateNote.vue')
     },
   ]
 })
