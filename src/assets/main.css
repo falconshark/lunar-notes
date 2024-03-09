@@ -30,10 +30,8 @@ input:focus {
 .right-content {
   margin-left: 270px;
   min-height: 93vh;
+  padding-top: 90px;
   background-color: #edeef0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 .right-content .page-header {
   margin-bottom: 30px;
@@ -127,13 +125,6 @@ input:focus {
   opacity: 0;
 }
 
-.action-links .action-link {
-  margin-right: 10px;
-}
-.action-links .action-link.danger {
-  color: red;
-}
-
 /* Notes Listing */
 .notes {
   display: flex;
@@ -144,7 +135,6 @@ input:focus {
   margin-right: 20px;
   min-height: 253px;
   width: 266px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .notes .note a {
   display: flex;

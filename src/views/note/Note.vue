@@ -2,11 +2,16 @@
     <div class="right-content">
       <div class="main-content">
         <div class="inner-content">
-          <div class="note-wrapper">
+          <div class="note-readmode" v-if="readMode">
             <h2 class="page-header">
-              Note
+              <div class="header-text">{{ noteTitle }}</div>
+              <div class="action-buttons">
+                <button class="btn btn-primary btn-edit">Edit</button>
+              </div>
             </h2>
-
+            <div class="note-reader">
+              {{ noteBody }}
+            </div>
           </div>
         </div>
       </div>
@@ -31,7 +36,9 @@
     },
     data() {
       return {
-        notes: [],
+        readMode: true,
+        noteTitle: '',
+        noteBody: '',
         loading: true,
       }
     },
@@ -42,11 +49,18 @@
       },
       async loadNoteContent(){
         const notebook = this.$route.params.notebook;
-        const filename = this.$route.params.filename;
+        const date = this.$route.params.date;
+        const filename = `${this.$route.params.filename}-${date}`;
         let filePath = `/${notebook}/${filename}.html`;
         if(notebook === 'uncategorized'){
-          const filePath = `/${filename}.html`;
+          filePath = `/${filename}.html`;
+        }else{
+          filePath = `/${notebook}/${filename}.html`;
         }
+        const fileContent = await Storage.downloadDropboxFile(this.dbx, filePath);
+        const note = Note.loadNote(fileContent);
+        this.noteBody = note.body;
+        this.noteTitle = note.title;
       },
     },
     computed: {
@@ -56,8 +70,11 @@
   </script>
     
   <style scoped lang="scss">
-  .page-subheader {
-    margin-bottom: 30px;
+  .page-header {
+    display: flex;
+    .header-text{
+      flex: 1;
+    }
   }
   </style>
     

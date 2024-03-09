@@ -28,8 +28,14 @@ const Note = {
         }
         return previews;
     },
-    loadNote(html){
-
+    //Load note content from html file
+    loadNote(noteFile){
+        const noteContent = this._parseNote(noteFile.text);
+        const note = {
+            title: noteContent.title,
+            body: noteContent.body,
+        }
+        return note;
     },
     //Create html file which contain note content
     createNoteHtml(title, content){

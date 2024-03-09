@@ -28,6 +28,7 @@ const Storage = {
             console.error(ex);
         }
     },
+    //List all dropbox files in path.
     async listDropboxFiles(dbx, path){
         try{
             let dropboxLists = await dbx.filesListFolder({path: path});
@@ -72,6 +73,15 @@ const Storage = {
             notes.push(noteFileContent);
         }
         return notes;
+    },
+    //Download single dropbox file
+    async downloadDropboxFile(dbx, filePath){
+        const response = await dbx.filesDownload({path: filePath });
+        const fileBlob = response.result.fileBlob;
+        const noteFileContent = {
+            text: await fileBlob.text(),
+        };
+        return noteFileContent;
     },
     async createDropboxFolder(dbx, folderName){
         try{
