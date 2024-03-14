@@ -107,7 +107,7 @@ export default {
     padding-left: 15px;
     list-style: none;
     li{
-      margin-bottom: 10px;
+      margin-bottom: 20px;
     }
   }
 
