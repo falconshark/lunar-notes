@@ -1,32 +1,13 @@
 <template>
   <div class="sidemenu">
-    <div class="logo-sidemenu">
-      <div class="sidemenu-title">
-        Falcon Note Taking
-      </div>
-    </div>
-    <el-menu :default-active="activeIndex" background-color="#158CBA" text-color="#ffffff" class="sidemenu-inner">
-      <div class="flex-grow" />
-      <div class="menu-item-wrapper" v-for="menuItem in menuItems">
-        <el-menu-item :index="menuItem.index" v-if="menuItem.type === 'menu-item'">
-          <router-link :to="menuItem.link">
-            <i :class="menuItem.icon"></i>
-            {{ menuItem.title }}
-          </router-link>
-        </el-menu-item>
-        <el-sub-menu :index="menuItem.index" v-else>
-          <template #title>
-            <i :class="menuItem.icon"></i>
-            <a href="#">{{ menuItem.title }}</a>
-          </template>
-          <el-menu-item v-for="subItem in menuItem.submenu" :index="subItem.index">
-            <router-link :to="subItem.link">
-              {{ subItem.title }}
-            </router-link>
-          </el-menu-item>
-        </el-sub-menu>
-      </div>
-    </el-menu>
+    <ul class="sidemenu-links">
+      <li class="sidemenu-link" v-for="menuItem in menuItems">
+        <router-link :to="menuItem.link" v-if="menuItem.type === 'menu-item'" :title="menuItem.title">
+          <i :class="menuItem.icon"></i>
+          {{ menuItem.title }}
+        </router-link>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -42,29 +23,25 @@ export default {
           'index': '1',
           'type': 'menu-item',
           'icon': 'bi bi-house-door-fill',
-          'title': 'Dashboard',
+          'title': 'Home',
           'link': '/',
         },
         {
           'index': '2',
-          'type': 'submenu',
-          'icon': 'bi bi-filter-square-fill',
+          'type': 'menu-item',
+          'icon': 'bi bi-pencil-fill',
           'title': 'Notes',
-          'submenu': [
-            {
-              'index': '2-1',
-              'title': 'Notes',
-              'link': '/notes',
-            },
-            {
-              'index': '2-1',
-              'title': 'Notebooks',
-              'link': '/notebooks',
-            },
-          ],
+          'link': '/notes',
         },
         {
           'index': '3',
+          'type': 'menu-item',
+          'icon': 'bi bi-book-fill',
+          'title': 'Notebooks',
+          'link': '/notebooks',
+        },
+        {
+          'index': '4',
           'type': 'menu-item',
           'icon': 'bi bi-gear-fill',
           'title': 'Settings',
@@ -122,8 +99,8 @@ export default {
 }
 
 .sidemenu {
-  width: 270px;
-  background: #158CBA;
+  width: 170px;
+  background: #38434E;
   overflow: hidden;
   overflow-y: hidden;
   position: fixed;
@@ -131,9 +108,14 @@ export default {
   bottom: 0;
   left: 0;
   min-height: 100vh;
+  padding-top: 20px;
 
-  .el-menu {
-    right: -1px;
+  .sidemenu-links{
+    padding-left: 15px;
+    list-style: none;
+    li{
+      margin-bottom: 10px;
+    }
   }
 
   a {
