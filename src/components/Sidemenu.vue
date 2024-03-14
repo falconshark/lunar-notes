@@ -22,26 +22,19 @@ export default {
         {
           'index': '1',
           'type': 'menu-item',
-          'icon': 'bi bi-house-door-fill',
-          'title': 'Home',
-          'link': '/',
-        },
-        {
-          'index': '2',
-          'type': 'menu-item',
           'icon': 'bi bi-pencil-fill',
           'title': 'Notes',
           'link': '/notes',
         },
         {
-          'index': '3',
+          'index': '2',
           'type': 'menu-item',
           'icon': 'bi bi-book-fill',
           'title': 'Notebooks',
           'link': '/notebooks',
         },
         {
-          'index': '4',
+          'index': '3',
           'type': 'menu-item',
           'icon': 'bi bi-gear-fill',
           'title': 'Settings',
