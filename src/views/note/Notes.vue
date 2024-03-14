@@ -1,9 +1,7 @@
 <template>
-  <div class="right-content">
-    <div class="main-content">
-      <div class="inner-content">
-         <NoteList />
-      </div>
+  <div class="page-notes">
+    <div class="right-content">
+      <NoteList />
     </div>
   </div>
 </template>
@@ -18,3 +16,11 @@ export default {
   },
 }
 </script>
+
+<style scoped lang="scss">
+.page-notes{
+  .right-content{
+    display: flex;
+  }
+}
+</style>

@@ -1,27 +1,39 @@
 <template>
     <div class="note-list-wrapper">
         <Loader v-if="loading" />
-        <div class="notes" v-else>
-            <div class="card note" v-for="note in notes">
-                <router-link :to="{
-                name: 'Note', params: {
-                notebook: getNotebook(note.path),
-                date: parseDate(note.date, 'MM-DD-YYYY'), filename: note.title
-            }
-            }">
-                    <div class="note-main-info">
-                        <div class="note-title">
-                            {{ note.title }}
-                        </div>
-                        <div class="note-content">
-                            {{ note.summary }}
-                        </div>
-                    </div>
-                    <div class="note-date">
-                        {{ parseDate(note.date, 'Do MMM YYYY') }}
-                    </div>
-                </router-link>
+        <div class="note-list-inner" v-else>
+            <div class="topbar-area">
+                <div class="search-wrapper">
+                    <input class="search-input" placeholder="Search Note">
+                </div>
+                <div class="action-buttons">
+                    <button class="action-button new-note">
+                        <i class="bi bi-pencil-fill"></i>
+                    </button>
+                </div>
             </div>
+            <ul class="notes">
+                <li class="note" v-for="note in notes">
+                    <router-link :to="{
+                        name: 'Note', params: {
+                            notebook: getNotebook(note.path),
+                            date: parseDate(note.date, 'MM-DD-YYYY'), filename: note.title
+                        }
+                        }">
+                        <div class="note-main-info">
+                            <h3 class="note-title">
+                                {{ note.title }}
+                            </h3>
+                            <div class="note-content">
+                                {{ note.summary }}
+                            </div>
+                        </div>
+                        <div class="note-date">
+                            {{ parseDate(note.date, 'Do MMM YYYY') }}
+                        </div>
+                    </router-link>
+                </li>
+            </ul>
         </div>
     </div>
 </template>
@@ -45,7 +57,7 @@ export default {
     data() {
         return {
             notes: [],
-            loading: true,
+            loading: false,
         }
     },
     methods: {
@@ -87,7 +99,75 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.page-subheader {
-    margin-bottom: 30px;
+.note-list-wrapper {
+    background-color: white;
+    height: 100vh;
+    flex-basis: 30%;
+    padding-left: 20px;
+    border-left: 1px solid #EAEAEA;
+    border-right: 1px solid #EAEAEA;
+}
+
+.note-list-inner{
+    height: 100%;
+}
+
+.topbar-area{
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #EAEAEA;
+    display: flex;
+
+    .search-wrapper{
+        position: relative;
+        flex: 1;
+        &::before{
+            display: block;
+            position: absolute;
+            left: 20px;
+            content: "\f52a";
+            font-family: "Bootstrap-icons";
+            top: 3px;
+        }
+    }
+    .search-input{
+        border-radius: 30px;
+        border: 1px solid #EAEAEA;
+        padding-left: 50px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        font-size: 13px;
+    }
+    .action-button{
+        background-color: white;
+        border: 1px solid #ddd;
+        padding: 4px 10px;
+        margin-right: 10px;
+        &:hover{
+            background-color: black;
+            color: white;
+        }
+    }
+}
+.notes {
+    height: 100%;
+    list-style: none;
+    padding: 0;
+    .note-title{
+        font-size: 1.1em;
+        margin-bottom: 10px;
+    }
+    .note-date{
+        text-align: right;
+    }
+    .note{
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #EAEAEA;
+        margin-bottom: 10px;
+    }
 }
 </style>

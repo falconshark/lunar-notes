@@ -82,5 +82,36 @@ export default {
 .page-subheader{
     margin-bottom: 30px;
 }
+.notes{
+  display: flex;
+  flex-wrap: wrap;
+  .note{
+      padding: 15px 20px 10px 20px;
+      margin-right: 20px;
+      min-height: 253px;
+      width: 266px;
+      border: 3px solid #E4E9F1;
+      border-radius: 5px;
+      a{
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        color: black;
+      }
+  }
+  .note-main-info{
+      flex: 1;
+  }
+  .note-title{
+      font-weight: bold;
+      font-size: 1.1em;
+  }
+  .note-content{
+      margin-top: 30px;
+  }
+  .note-date{
+      text-align: right;
+  }
+}
 </style>
     

@@ -8,6 +8,9 @@ body{
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
 }
+a{
+  color: black;
+}
 
 input{
   &:focus{
@@ -74,39 +77,6 @@ input{
       border-bottom: none;
     }
   }
-
-  .content-tabs{
-    margin-bottom: 10px;
-    .el-tabs__item{
-      &:hover{
-        color: #C6471B;
-      }
-      &.is-active{
-        color: #C6471B;
-      }
-    }
-    .el-tabs{
-      .el-tabs__header{
-        padding-left: 20px;
-      }
-      .el-tabs__content{
-        display: none;
-      }
-      .el-tabs__nav-wrap::after{
-        display: none;
-      }
-    }
-  }
-}
-
-.table{
-  th{
-    padding-left: 20px;
-    border-top: 0;
-  }
-  td{
-    padding-left: 20px;
-  }
 }
 
 .content-header{
@@ -126,48 +96,15 @@ input{
   }
 }
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .2s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
-}
-
-/* Notes Listing */
-.notes{
-  display: flex;
-  flex-wrap: wrap;
-  .note{
-      padding: 15px 20px 10px 20px;
-      margin-right: 20px;
-      min-height: 253px;
-      width: 266px;
-      border: 3px solid #E4E9F1;
-      border-radius: 5px;
-      a{
-        display: flex;
-        height: 100%;
-        flex-direction: column;
-        color: black;
-      }
-  }
-  .note-main-info{
-      flex: 1;
-  }
-  .note-title{
-      font-weight: bold;
-      font-size: 1.1em;
-  }
-  .note-content{
-      margin-top: 30px;
-  }
-  .note-date{
-      text-align: right;
-  }
-}
-
 /* Editor */
 .ql-editor{
   min-height: 400px;
   font-size: 15px;
+}
+
+/* Notes Page */
+.page-notes{
+  .right-content{
+    padding: 0;
+  }
 }
