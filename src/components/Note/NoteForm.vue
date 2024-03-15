@@ -95,6 +95,12 @@ export default {
 </script>
     
 <style lang="scss" scoped>
+.note-form{
+    flex-basis: 70%;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+}
 .action-buttons {
     text-align: right;
     width: 100%;
