@@ -34,6 +34,10 @@ export default {
     },
     props: {
         action: String,
+        note: {
+            type: Object,
+            required: false,
+        },
     },
     mounted(){
         this.loadNotebooks();
