@@ -28,9 +28,7 @@ export default {
   data() {
     return {
       readMode: true,
-      noteTitle: '',
-      noteBody: '',
-      notebook: '',
+      note: null
     }
   },
   methods: {
@@ -50,10 +48,7 @@ export default {
       }
       const fileContent = await Storage.downloadDropboxFile(this.dbx, filePath);
       const note = Note.loadNote(fileContent);
-
-      this.notebook = notebook;
-      this.noteBody = note.body;
-      this.noteTitle = note.title;
+      this.note = note;
     },
   },
   computed: {

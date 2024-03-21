@@ -28,7 +28,7 @@ import Note from '@/lib/Note';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
 export default {
-    name: 'CreateNote',
+    name: 'NoteForm',
     components: {
         QuillEditor,
     },
