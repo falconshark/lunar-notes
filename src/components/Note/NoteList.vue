@@ -1,6 +1,6 @@
 <template>
     <div class="note-list-wrapper">
-        <Loader v-if="loading" />
+        <Loading v-if="loading" />
         <div class="note-list-inner" v-else>
             <div class="topbar-area">
                 <div class="search-wrapper">
@@ -39,26 +39,26 @@
 </template>
 
 <script>
-import { mapState } from 'pinia';
+import { mapState, mapActions } from 'pinia';
 import { useStorageStore } from '@/stores/storage';
-import Loader from '@/components/Common/Loading.vue';
+import { useNoteStore } from '@/stores/note';
+import Loading from '../Common/Loading.vue';
 import Common from '@/lib/Common';
 import Storage from '@/lib/Storage';
 import Note from '@/lib/Note';
 
 export default {
     name: 'NoteList',
-    components: {
-        Loader
-    },
     mounted() {
         this.loadStorageContent();
     },
-    data() {
+    components:{
+        Loading
+    },
+    data(){
         return {
-            notes: [],
-            loading: false,
-        }
+            loading: true,
+        };
     },
     methods: {
         getNotebook(notePath) {
@@ -70,6 +70,7 @@ export default {
             return date;
         },
         async loadStorageContent() {
+            //Only load content when dropbox authenticated and notes had not been loaded.
             if (this.authenticated) {
                 let storageContent = [];
                 const rootFolderContent = await Storage.listDropboxFiles(this.dbx, '');
@@ -87,18 +88,25 @@ export default {
                 let notes = await Storage.downloadDropboxFiles(this.dbx, noteFiles);
                 notes = Note.sortNotes(notes);
                 const notesPreview = await Note.previewNotes(notes);
-                this.notes = notesPreview;
+                this.updateNoteList(notesPreview);
                 this.loading = false;
             }
         },
+        ...mapActions(useNoteStore, ['updateNoteList'])
     },
     computed: {
-        ...mapState(useStorageStore, ['dbx', 'authenticated'])
+        ...mapState(useStorageStore, ['dbx', 'authenticated']),
+        ...mapState(useNoteStore, ['notes'])
     },
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
+.loader{
+    position: absolute;
+    top: 40%;
+    left: 40%;
+}
 .note-list-wrapper {
     background-color: white;
     height: 100vh;
@@ -106,6 +114,7 @@ export default {
     padding-left: 20px;
     border-left: 1px solid #EAEAEA;
     border-right: 1px solid #EAEAEA;
+    position: relative;
 }
 
 .note-list-inner{

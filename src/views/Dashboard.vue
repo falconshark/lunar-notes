@@ -8,7 +8,7 @@
             <div class="message-text">
               Welcome to Lunar Notes ! Let's start taking note.
             </div>
-            <router-link to="/note/create" class="btn btn-primary btn-create">
+            <router-link to="/notes" class="btn btn-primary btn-create">
               Create New Note
             </router-link>
           </div>

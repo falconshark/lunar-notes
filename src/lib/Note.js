@@ -17,7 +17,7 @@ const Note = {
             const note = notes[i];
             const noteDate = note.date;
             const noteContent = this._parseNote(note.text);
-            const noteSummary = this._cleanText(noteContent['body']);
+            const noteSummary = this.cleanText(noteContent['body']);
             const notePreview = {
                 title: noteContent['title'],
                 path: note.path,
@@ -75,7 +75,7 @@ const Note = {
         return noteContent;
     },
     //Clean text before using for summary.
-    _cleanText(text){
+    cleanText(text){
         let clearText = text.replace(/<(?:.|\n)*?>/gm, '');
         clearText = clearText.trim();
         const textArea = document.createElement('textarea');

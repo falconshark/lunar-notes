@@ -8,7 +8,8 @@
             <div class="notebook-select">
                 <i class="bi bi-book"></i>
                 <el-select v-model="notebook" filterable placeholder="请选择">
-                    <el-option v-for="notebook in notebooks" :key="notebook.path" :label="notebook.name" :value="notebook.path"></el-option>
+                    <el-option v-for="notebook in notebooks" :key="notebook.path" :label="notebook.name"
+                        :value="notebook.path"></el-option>
                 </el-select>
             </div>
         </div>
@@ -17,10 +18,11 @@
         </div>
     </div>
 </template>
-    
+
 <script>
-import { mapState } from 'pinia';
+import { mapState, mapActions } from 'pinia';
 import { useStorageStore } from '@/stores/storage';
+import { useNoteStore } from '@/stores/note';
 import { QuillEditor } from '@vueup/vue-quill';
 import Common from '@/lib/Common';
 import Storage from '@/lib/Storage';
@@ -39,22 +41,22 @@ export default {
             required: false,
         },
     },
-    mounted(){
+    mounted() {
         this.loadNotebooks();
     },
     data() {
         return {
             noteTitle: '',
             notebook: 'Uncategorized',
-            notebooks: [{'name': 'Uncategorized', 'path': ''}],
+            notebooks: [{ 'name': 'Uncategorized', 'path': '' }],
         };
     },
     methods: {
-        async loadNotebooks(){
+        async loadNotebooks() {
             const rootFolderContent = await Storage.listDropboxFiles(this.dbx, '');
             const folders = await Storage.filterDropboxFolders(rootFolderContent);
             const notebooks = [];
-            for(let i = 0; i < folders.length; i++){
+            for (let i = 0; i < folders.length; i++) {
                 let notebook = folders[i];
                 notebook = {
                     name: notebook.name,
@@ -75,13 +77,21 @@ export default {
                     //By default, save the file to target notebook (folder)
                     let fileName = `${notebook}/${title}-${currentDate}.html`;
                     //But if target notebook is 'Uncategorized', save it to root folder
-                    if(notebook === 'Uncategorized'){
+                    if (notebook === 'Uncategorized') {
                         fileName = `/${title}-${currentDate}.html`;
                     }
-                    try{
-                        await Storage.createDropboxFile(this.dbx, fileName, noteHtml);
-                        this.$router.push({'path': '/notes'});
-                    }catch(ex){
+                    try {
+                        const newNote = await Storage.createDropboxFile(this.dbx, fileName, noteHtml);
+                        const noteList = this.notes;
+                        const notePreview = {
+                            title,
+                            path: newNote.path_lower,
+                            summary: content.substring(0, 150),
+                            date: currentDate,
+                        };
+                        noteList.unshift(notePreview);
+                        this.updateNoteList(noteList);
+                    } catch (ex) {
                         console.error(ex);
                     }
                     break;
@@ -91,20 +101,23 @@ export default {
                     break;
             }
         },
+        ...mapActions(useNoteStore, ['updateNoteList'])
     },
     computed: {
-        ...mapState(useStorageStore, ['dbx'])
+        ...mapState(useStorageStore, ['dbx']),
+        ...mapState(useNoteStore, ['notes'])
     },
 }
 </script>
-    
+
 <style lang="scss" scoped>
-.note-form{
+.note-form {
     flex-basis: 70%;
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 20px;
 }
+
 .action-buttons {
     text-align: right;
     width: 100%;

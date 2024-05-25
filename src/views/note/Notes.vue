@@ -2,7 +2,7 @@
   <div class="page-notes">
     <div class="right-content">
       <NoteList />
-      <NoteForm />
+      <NoteForm action="create"/>
     </div>
   </div>
 </template>

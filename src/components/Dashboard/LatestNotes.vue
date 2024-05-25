@@ -3,7 +3,7 @@
         <h2 class="page-subheader">
             Latest Notes
         </h2>
-        <div class="notes">
+        <div class="notes" v-if="!loading">
             <div class="card note" v-for="note in notes">
                 <router-link :to="{
             name: 'Note', params: {
@@ -25,13 +25,15 @@
                 </router-link>
             </div>
         </div>
+        <div v-else>
+            Now Loading...
+        </div>
     </div>
 </template>
 
 <script>
 import { mapState } from 'pinia';
 import { useStorageStore } from '@/stores/storage';
-import Loader from '@/components/Common/Loading.vue';
 import Common from '@/lib/Common';
 import Storage from '@/lib/Storage';
 import Note from '@/lib/Note';
@@ -44,6 +46,7 @@ export default {
     data() {
         return {
             notes: [],
+            loading: true,
         }
     },
     methods: {
