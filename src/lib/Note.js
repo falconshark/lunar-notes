@@ -78,6 +78,7 @@ const Note = {
     cleanText(text){
         let clearText = text.replace(/<(?:.|\n)*?>/gm, '');
         clearText = clearText.trim();
+        clearText = clearText.replace(/<\/?("[^"]*"|'[^']*'|[^>])*(>|$)/g, "");
         const textArea = document.createElement('textarea');
         textArea.innerHTML = clearText;
         clearText = textArea.value;

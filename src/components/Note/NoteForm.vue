@@ -86,7 +86,7 @@ export default {
                         const notePreview = {
                             title,
                             path: newNote.path_lower,
-                            summary: content.substring(0, 150),
+                            summary: Note.cleanText(content).substring(0, 150),
                             date: currentDate,
                         };
                         noteList.unshift(notePreview);
@@ -138,6 +138,7 @@ export default {
         border-bottom: 1px solid #ddd;
         padding-top: 10px;
         padding-bottom: 10px;
+        background: none;
     }
 }
 

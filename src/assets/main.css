@@ -27,7 +27,7 @@ input:focus {
 }
 
 .right-content {
-  margin-left: 150px;
+  margin-left: 170px;
   min-height: 93vh;
   background-color: #F9FCFF;
 }
@@ -46,6 +46,7 @@ input:focus {
   background-color: white;
   border: 2px solid #E4E9F1;
   padding: 50px 50px 60px 50px;
+  margin-top: 50px;
 }
 
 .page-content {
