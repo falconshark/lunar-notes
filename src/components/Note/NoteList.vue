@@ -50,6 +50,10 @@ import Note from '@/lib/Note';
 export default {
     name: 'NoteList',
     mounted() {
+        //Check notes list, if it is empty will show loading animation.
+        if(this.notes.length === 0){
+            this.loading = true;
+        }
         this.loadStorageContent();
     },
     components:{
@@ -57,7 +61,7 @@ export default {
     },
     data(){
         return {
-            loading: true,
+            loading: false,
         };
     },
     methods: {

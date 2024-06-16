@@ -103,9 +103,14 @@ export default {
         },
         ...mapActions(useNoteStore, ['updateNoteList'])
     },
+    watch: {
+        currentNote(){
+            this.noteTitle = this.currentNote.title;
+        },
+    },
     computed: {
         ...mapState(useStorageStore, ['dbx']),
-        ...mapState(useNoteStore, ['notes'])
+        ...mapState(useNoteStore, ['notes', 'currentNote'])
     },
 }
 </script>

@@ -8,8 +8,9 @@
 </template>
 
 <script>
-import { mapState } from 'pinia';
+import { mapState, mapActions } from 'pinia';
 import { useStorageStore } from '@/stores/storage';
+import { useNoteStore } from '@/stores/note';
 import NoteList from '@/components/Note/NoteList.vue';
 import NoteForm from '@/components/Note/NoteForm.vue';
 import Common from '@/lib/Common';
@@ -22,8 +23,11 @@ export default {
     NoteList,
     NoteForm,
   },
-  mounted() {
+  created() {
     this.loadNoteContent();
+    this.$watch(() => this.$route.params, () =>{
+      this.loadNoteContent();
+    });
   },
   data() {
     return {
@@ -48,8 +52,11 @@ export default {
       }
       const fileContent = await Storage.downloadDropboxFile(this.dbx, filePath);
       const note = Note.loadNote(fileContent);
-      this.note = note;
+      note['notebook'] = notebook;
+      note['path'] = filePath;
+      this.setCurrentNote(note);
     },
+    ...mapActions(useNoteStore, ['setCurrentNote'])
   },
   computed: {
     ...mapState(useStorageStore, ['dbx', 'authenticated'])
