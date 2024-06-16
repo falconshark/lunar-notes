@@ -106,6 +106,8 @@ export default {
     watch: {
         currentNote(){
             this.noteTitle = this.currentNote.title;
+            this.notebook = this.currentNote.notebook;
+            this.$refs.editor.setText(this.currentNote.body);
         },
     },
     computed: {

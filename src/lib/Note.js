@@ -70,7 +70,7 @@ const Note = {
         const noteBody = $('.note-content').text();
         const noteContent = {
             title: noteTitle,
-            body: noteBody,
+            body: noteBody.trim(),
         };
         return noteContent;
     },
