@@ -2,7 +2,7 @@
   <div class="page-note">
     <div class="right-content">
       <NoteList />
-      <NoteForm />
+      <NoteForm action="update"/>
     </div>
   </div>
 </template>
@@ -43,17 +43,17 @@ export default {
     async loadNoteContent() {
       const notebook = this.$route.params.notebook;
       const date = this.$route.params.date;
-      const filename = `${this.$route.params.filename}-${date}`;
-      let filePath = `/${notebook}/${filename}.html`;
+      const filename = `${this.$route.params.filename}`;
+      let filePath = `/${notebook}/${filename}`;
       if (notebook === 'uncategorized') {
-        filePath = `/${filename}.html`;
-      } else {
-        filePath = `/${notebook}/${filename}.html`;
+        filePath = `/${filename}`;
       }
+      console.log(filePath);
       const fileContent = await Storage.downloadDropboxFile(this.dbx, filePath);
       const note = Note.loadNote(fileContent);
       note['notebook'] = notebook;
       note['path'] = filePath;
+      note['date'] = date;
       this.setCurrentNote(note);
     },
     ...mapActions(useNoteStore, ['setCurrentNote'])

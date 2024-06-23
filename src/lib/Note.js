@@ -19,6 +19,7 @@ const Note = {
             const noteContent = this._parseNote(note.text);
             const noteSummary = this.cleanText(noteContent['body']);
             const notePreview = {
+                name: note.name,
                 title: noteContent['title'],
                 path: note.path,
                 summary: noteSummary.substring(0, 150),

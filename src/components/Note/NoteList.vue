@@ -17,7 +17,7 @@
                     <router-link :to="{
                         name: 'Note', params: {
                             notebook: getNotebook(note.path),
-                            date: parseDate(note.date, 'MM-DD-YYYY'), filename: note.title
+                            date: parseDate(note.date, 'MM-DD-YYYY'), filename: note.name
                         }
                         }">
                         <div class="note-main-info">

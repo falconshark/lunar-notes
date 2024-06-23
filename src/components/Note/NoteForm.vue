@@ -70,10 +70,10 @@ export default {
             const title = this.noteTitle;
             const notebook = this.notebook;
             const content = this.$refs.editor.getHTML();
+            const noteHtml = Note.createNoteHtml(title, content);
             switch (this.action) {
                 case 'create':
                     const currentDate = Common.genDate();
-                    const noteHtml = Note.createNoteHtml(title, content);
                     //By default, save the file to target notebook (folder)
                     let fileName = `${notebook}/${title}-${currentDate}.html`;
                     //But if target notebook is 'Uncategorized', save it to root folder
@@ -81,7 +81,7 @@ export default {
                         fileName = `/${title}-${currentDate}.html`;
                     }
                     try {
-                        const newNote = await Storage.createDropboxFile(this.dbx, fileName, noteHtml);
+                        const newNote = await Storage.updateDropboxFile(this.dbx, fileName, noteHtml);
                         const noteList = this.notes;
                         const notePreview = {
                             title,
@@ -96,6 +96,23 @@ export default {
                     }
                     break;
                 case 'update':
+                    const filePath = this.currentNote.path;
+                    try {
+                        await Storage.updateDropboxFile(this.dbx, filePath, noteHtml, 'overwrite');
+                        const noteList = this.notes;
+                        const notePreview = {
+                            title,
+                            path: this.currentNote.path,
+                            summary: Note.cleanText(content).substring(0, 150),
+                            date: this.currentNote['date'],
+                        };
+                        //Update the content in preview list
+                        const targetNoteIndex = noteList.findIndex(function(note){
+                            return currentNote.path === note.path;
+                        });
+                    } catch (ex) {
+                        console.error(ex);
+                    }
                     break;
                 default:
                     break;

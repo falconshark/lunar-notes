@@ -62,10 +62,12 @@ const Storage = {
         const notes = [];
         for(let i = 0; i < noteFiles.length; i++){
             const noteFile = noteFiles[i];
-            const fileUpdateDate = noteFile['client_modified'];
+            const noteDateRegax = /(^.+)-([0-9][0-9]{0,1}-[0-9][0-9]{0,1}-[0-9][0-9]{0,4})(\.html)/;
+            const fileUpdateDate = noteDateRegax.exec(noteFile['path_lower'])[2];
             const response = await dbx.filesDownload({path: noteFile['path_lower']});
             const fileBlob = response.result.fileBlob;
             const noteFileContent = {
+                name: noteFile['name'],
                 text: await fileBlob.text(),
                 path: noteFile['path_lower'],
                 date: fileUpdateDate,
@@ -91,8 +93,12 @@ const Storage = {
             return false;
         }
     },
-    async createDropboxFile(dbx, filename, content){
+    async updateDropboxFile(dbx, filename, content, mode){
         try{
+            if(mode){
+                const response = await dbx.filesUpload({path: filename, contents: content, mode});
+                return response;
+            }
             const response = await dbx.filesUpload({path: filename, contents: content});
             return response;
         }catch(ex){
