@@ -36,6 +36,13 @@ export default {
         {
           'index': '3',
           'type': 'menu-item',
+          'icon': 'bi bi-trash3-fill',
+          'title': 'Trash',
+          'link': '/trash',
+        },
+        {
+          'index': '4',
+          'type': 'menu-item',
           'icon': 'bi bi-gear-fill',
           'title': 'Settings',
           'link': '/settings',
