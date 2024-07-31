@@ -1,36 +1,37 @@
 <template>
     <div class="page-notebook">
+        <el-dialog v-model="displayForm">
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+        </el-dialog>
         <div class="right-content">
             <h2 class="page-header">
                 Notebooks
             </h2>
+            <div class="control-buttons">
+                <button class="btn btn-primary" @click="showForm">Add Notebook</button>
+            </div>
             <div class="notebook-lists">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
+                        <tr v-for="notebook in notebooks">
+                            <td>{{ notebook.name }}</td>
+                            <td class="action-links">
+                                <a href="#">View</a>
+                                <a href="#">Remove</a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -45,26 +46,29 @@ import { useStorageStore } from '@/stores/storage';
 import Common from '@/lib/Common';
 import Storage from '@/lib/Storage';
 import Note from '@/lib/Note';
+import NotebookForm from '@/components/Notebook/NotebookForm.vue';
 
 export default {
     name: 'Notebooks',
+    components: {
+        NotebookForm,
+    },
     mounted() {
-        //this.loadStorageContent();
+        this.loadStorageContent();
     },
     data() {
         return {
-            notes: [],
+            notebooks: [],
             loading: true,
+            displayForm: false,
         }
     },
     methods: {
-        getNotebook(notePath) {
-            const notebook = Note.getNotebook(notePath);
-            return notebook;
+        showForm() {
+            this.displayForm = true;
         },
-        parseDate(dateString) {
-            const date = Common.parseDate(dateString, 'Do MMM YYYY');
-            return date;
+        closeForm() {
+            this.displayForm = false;
         },
         async loadStorageContent() {
             if (this.authenticated) {
@@ -73,19 +77,10 @@ export default {
                 //Get all content inculde notebook
                 for (let i = 0; i < rootFolderContent.length; i++) {
                     const folderContent = rootFolderContent[i];
-                    if (folderContent['.tag'] === 'folder') {
-                        let subFolderContent = await Storage.listDropboxFiles(this.dbx, folderContent['path_lower']);
-                        storageContent = storageContent.concat(subFolderContent);
-                    } else {
-                        storageContent.push(folderContent);
-                    }
+                    storageContent.push(folderContent);
                 }
-                const noteFiles = await Storage.filterDropboxFiles(storageContent);
-                let notes = await Storage.downloadDropboxFiles(this.dbx, noteFiles);
-                notes = Note.sortNotes(notes);
-                const notesPreview = await Note.previewNotes(notes);
-                this.notes = notesPreview;
-                this.loading = false;
+                const notebooks = await Storage.filterDropboxFolders(storageContent);
+                this.notebooks = notebooks;
             }
         },
     },
@@ -98,5 +93,18 @@ export default {
 <style scoped lang="scss">
 .right-content {
     padding: 15px 20px 10px 20px;
+}
+
+.action-links {
+    display: flex;
+
+    a {
+        display: block;
+        margin-right: 20px;
+    }
+}
+
+.control-buttons {
+    margin-bottom: 20px;
 }
 </style>

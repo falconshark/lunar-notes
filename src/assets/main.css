@@ -11,10 +11,6 @@ body {
   min-height: 100vh;
 }
 
-a {
-  color: black;
-}
-
 input:focus {
   color: #212529;
   background-color: #fff;
@@ -89,6 +85,11 @@ input:focus {
 .action-buttons a {
   margin-right: 10px;
   display: inline-block;
+}
+
+/* Note */
+.note a {
+  color: black;
 }
 
 /* Editor */
